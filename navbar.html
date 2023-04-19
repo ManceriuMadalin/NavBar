@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>NavBar</title>
+     <style>
+          * {
+               margin: 0;
+          }
+
+          nav {
+               z-index: 1000;
+               position: fixed;
+               height: 50px;
+               border-radius: 25px;
+               background-color: #000;
+               left: 50%;
+               transform: translateX(-50%);
+               top: 25px;
+               display: flex;
+          }
+
+          a {
+               z-index: 1;
+               text-decoration: none;
+               color: #fff;
+               font-size: 1.5em;
+               margin-inline: 5px;
+               padding-inline: 10px;
+               line-height: 2;
+               transition: color 1s;
+          }
+
+          div {
+               position: relative;
+               margin-top: 50px;
+               width: 90vw;
+               height: 100vh;
+               left: 5vw;
+               background-color: antiquewhite;
+          }
+
+          span {
+               z-index: -1;
+               position: absolute;
+               background-color: #fff;
+               top: 5px;
+               height: 40px;
+               border-radius: 20px;
+               transition: left 1s;
+          }
+     </style>
+</head>
+
+<body>
+     <nav id="navigation">
+          <a id="goToAbout" href="#about">About</a>
+          <a id="goToProject" href="#project">Project</a>
+          <a id="goToContact" href="#contact">Contact</a>
+     </nav>
+     <script>
+          let nav = document.querySelector('#navigation')
+          var l = document.createElement('span')
+          let firstA = document.querySelector('#goToAbout')
+          let secondA = document.querySelector('#goToProject')
+          let thirdA = document.querySelector('#goToContact')
+          let arr = [5, firstA.offsetWidth + 10, secondA.offsetWidth + 10]
+          let secArr = [firstA, secondA, thirdA]
+
+          function create() {
+               l.style.width = `${firstA.offsetWidth}px`
+               l.style.left = '5px'
+               firstA.style.color = '#000'
+               nav.append(l)
+          }
+
+          window.onload = function () {
+               create()
+          }
+
+          function move(n, m) {
+               let s = arr[0]
+
+               for (let i = 1; i <= n; i++) {
+                    s += arr[i]
+               }
+
+               for (let i = 0; i <= 2; i++) {
+                    if (i !== n) {
+                         secArr[i].style.color = '#fff'
+                    }
+               }
+
+               l.style.left = `${s}px`
+               l.style.width = `${secArr[n].offsetWidth}px`
+               m.style.color = '#000'
+          }
+
+          firstA.addEventListener('click', () => {
+               move(0, firstA)
+          })
+
+          secondA.addEventListener('click', () => {
+               move(1, secondA)
+          })
+
+          thirdA.addEventListener('click', () => {
+               move(2, thirdA)
+          })
+     </script>
+</body>
+
+</html>
